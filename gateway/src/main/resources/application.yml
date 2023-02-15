@@ -1,0 +1,42 @@
+server:
+  port: 80
+logging:
+  level:
+    root: info
+    web: info
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: digibank
+          uri: lb://digibank
+          predicates:
+            - Path=/digibank/**
+          filters:
+            - RewritePath=/core/(?<path>.*), /$\{path}
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+        - id: auth-service
+          uri: http://localhost:8085
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth/(?<path>.*), /$\{path}
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
+    main:
+      web-application-type: reactive
+
+  sec:
+    config:
+      allowedOrigins: http://localhost:4200
+
