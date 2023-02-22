@@ -29,6 +29,7 @@
 		<module>gateway</module>
         <module>utility</module>
 		<module>workflow</module>
+		<module>infrastructure</module>
 	</modules>
 
 

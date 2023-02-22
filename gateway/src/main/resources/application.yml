@@ -33,10 +33,28 @@ spring:
       port: 8500
       discovery:
         instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
-    main:
-      web-application-type: reactive
-
+  security:
+    oauth2:
+      client:
+        provider:
+          my-keycloak-provider:
+            issuer-uri: http://localhost:8085/auth/realms/demo-realm
+            # Individual properties can also be provided this way
+        #            token-uri: http://localhost:8085/auth/realms/amrutrealm/protocol/openid-connect/token
+        #            authorization-uri: http://localhost:8085/auth/realms/amrutrealm/protocol/openid-connect/auth
+        #            userinfo-uri: http://localhost:8085/auth/realms/amrutrealm/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+        registration:
+          keycloak-spring-gateway-client:
+            provider: my-keycloak-provider
+            scope: openid
+            client-id: demo-client
+            client-secret: DGKx8dtfKrUNA0Vpf9McK0GkmNfD2C0c
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
   sec:
     config:
       allowedOrigins: http://localhost:4200
-
+#
+#  securityConstraints:
+#    authRoles:
