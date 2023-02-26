@@ -18,9 +18,9 @@
 	<properties>
 		<spring-boot-verion>2.7.3</spring-boot-verion>
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
-		<keycloak.adapter.version>19.0.1</keycloak.adapter.version>
 		<springdoc.version>1.6.14</springdoc.version>
 		<camunda-version>7.18.0</camunda-version>
+		<spring-security.version>5.7.7</spring-security.version>
 	</properties>
 
 	<modules>
@@ -81,6 +81,11 @@
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+				<version>${spring-boot-verion}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
 				<version>${spring-cloud.version}</version>
@@ -91,10 +96,6 @@
 	</dependencyManagement>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

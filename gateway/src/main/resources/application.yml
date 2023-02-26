@@ -19,7 +19,7 @@ spring:
           predicates:
             - Path=/digibank/**
           filters:
-            - RewritePath=/core/(?<path>.*), /$\{path}
+            - RewritePath=/digibank/(?<path>.*), /$\{path}
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
         - id: auth-service
           uri: http://localhost:8085
@@ -28,6 +28,8 @@ spring:
           filters:
             - RewritePath=/auth/(?<path>.*), /$\{path}
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      default-filters:
+        - TokenRelay
     consul:
       host: localhost
       port: 8500
@@ -37,24 +39,36 @@ spring:
     oauth2:
       client:
         provider:
-          my-keycloak-provider:
+          keycloak:
             issuer-uri: http://localhost:8085/auth/realms/demo-realm
             # Individual properties can also be provided this way
         #            token-uri: http://localhost:8085/auth/realms/amrutrealm/protocol/openid-connect/token
         #            authorization-uri: http://localhost:8085/auth/realms/amrutrealm/protocol/openid-connect/auth
-        #            userinfo-uri: http://localhost:8085/auth/realms/amrutrealm/protocol/openid-connect/userinfo
+            user-info-uri: http://localhost:8085/auth/realms/demo-realm/protocol/openid-connect/userinfo
             user-name-attribute: preferred_username
+            jwk-set-uri: http://localhost:8085/auth/realms/demo-realm/protocol/openid-connect/certs
         registration:
-          keycloak-spring-gateway-client:
-            provider: my-keycloak-provider
+          keycloak:
+            provider: keycloak
             scope: openid
-            client-id: demo-client
-            client-secret: DGKx8dtfKrUNA0Vpf9McK0GkmNfD2C0c
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+            client-id: test
+            client-secret: ZKjeJVGV0qK7okiK1cBX22uPIAMo4kVw
+            authorization-grant-type: bearer
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
   sec:
     config:
       allowedOrigins: http://localhost:4200
+#  main:
+#    web-application-type: reactive
 #
 #  securityConstraints:
 #    authRoles:
+#keycloak:
+#  realm: demo-realm
+#  auth-server-url: http://localhost:8085/auth
+#  ssl-required: external
+#  resource: test
+#  use-resource-role-mappings: false
+#  bearer-only: false
+#  credentials:
+#    secret: ZKjeJVGV0qK7okiK1cBX22uPIAMo4kVw

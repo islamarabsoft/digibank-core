@@ -18,10 +18,14 @@ spring:
       discovery:
         instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
 
-
   sec:
     config:
       allowedOrigins: http://localhost:4200
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8085/auth/realms/demo-realm
 
 springdoc:
   api-docs:
