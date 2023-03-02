@@ -20,11 +20,5 @@
         <artifactId>digibank</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-<dependencies>
-    <dependency>
-        <groupId>com.segmaware.digibank</groupId>
-        <artifactId>utility</artifactId>
-    </dependency>
-</dependencies>
 
 </project>

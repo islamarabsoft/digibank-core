@@ -21,6 +21,9 @@ public class RecordNotFoundException extends RuntimeException {
 		// TODO Auto-generated constructor stub
 	}
 
+	public RecordNotFoundException() {
+		super("Entity not found");
+	}
 	public RecordNotFoundException(String msg) {
 		super(msg);
 	}

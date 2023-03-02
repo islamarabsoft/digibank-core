@@ -3,6 +3,7 @@ package com.segmaware.utility.helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.DelegatingMessageSource;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -16,7 +17,10 @@ public class MessageUtils {
     public String getLocalizedMessage(String message) {
         StringBuilder errorMessage = new StringBuilder();
         Locale currentLocale = LocaleContextHolder.getLocale();
-        errorMessage.append(messageSource.getMessage(message,null, currentLocale));
+        if(((DelegatingMessageSource)messageSource).getParentMessageSource() != null)
+            errorMessage.append(messageSource.getMessage(message,null, currentLocale));
+        else
+            errorMessage.append(message);
         return errorMessage.toString();
     }
 

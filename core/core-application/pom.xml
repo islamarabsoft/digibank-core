@@ -31,5 +31,9 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-jose</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.segmaware.digibank</groupId>
+            <artifactId>core-service</artifactId>
+        </dependency>
     </dependencies>
 </project>

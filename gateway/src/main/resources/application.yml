@@ -50,11 +50,11 @@ spring:
         registration:
           keycloak:
             provider: keycloak
-            scope: openid
-            client-id: test
-            client-secret: ZKjeJVGV0qK7okiK1cBX22uPIAMo4kVw
-            authorization-grant-type: bearer
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+#            scope: openid
+            client-id: demo-client
+            client-secret: uhGmZmzvp4kN7HLnvsvj64MBFLOIFZLb
+#            authorization-grant-type: bearer
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
   sec:
     config:
       allowedOrigins: http://localhost:4200
